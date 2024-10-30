@@ -5,15 +5,17 @@ import Home from './components/Home';
 // import Projects from './components/Projects';
 // import Skills from './components/Skills';
 // import Contact from './components/Contact';
-import './styles.css';
+import Navbar from './components/Navbar/Navbar';
+import './styles.css'; // Global styles
 
 const App: React.FC = () => (
     <Router>
+        <Navbar />
         <Routes>
             <Route path="/" element={<Home />} />
-{/*<Route path="/projects" element={<Projects />} />*/}
-{/*<Route path="/skills" element={<Skills />} />*/}
-{/*<Route path="/contact" element={<Contact />} />*/}
+            {/*<Route path="/projects" element={<Projects />} />*/}
+            {/*<Route path="/skills" element={<Skills />} />*/}
+            {/*<Route path="/contact" element={<Contact />} />*/}
         </Routes>
     </Router>
 );
