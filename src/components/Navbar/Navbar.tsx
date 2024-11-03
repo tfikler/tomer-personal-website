@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
             <ul className="nav-links">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/projects">Projects</Link></li>
-                <li><Link to="/skills">Skills</Link></li>
+                <li><Link to="/experience">Experience</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
         </nav>

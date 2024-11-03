@@ -6,6 +6,7 @@ import Home from './components/Home';
 // import Skills from './components/Skills';
 // import Contact from './components/Contact';
 import Navbar from './components/Navbar/Navbar';
+import Experience from './components/Experience/Experience';
 import './styles.css'; // Global styles
 
 const App: React.FC = () => (
@@ -13,13 +14,14 @@ const App: React.FC = () => (
         <Navbar/>
         <Routes>
             <Route path="/" element={<Home/>}/>
+            <Route path="/experience" element={<Experience />} />
             {/*<Route path="/projects" element={<Projects />} />*/}
             {/*<Route path="/skills" element={<Skills />} />*/}
             {/*<Route path="/contact" element={<Contact />} />*/}
         </Routes>
-        <footer>
+        <div className='footer-like'>
             &copy; 2024 Tomer Fikler. All Rights Reserved.
-        </footer>
+        </div>
     </Router>
 );
 
