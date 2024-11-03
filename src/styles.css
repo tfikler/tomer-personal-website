@@ -46,9 +46,9 @@ a {
 footer {
     text-align: center;
     padding: 1rem 0;
-    background-color: #333;
-    color: #fff;
+    color: #333;
     position: fixed;
+    font-size: 0.8rem;
     bottom: 0;
     width: 100%;
 }
