@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Navbar.css'; // Import CSS specific to Navbar
 
 
@@ -31,10 +30,8 @@ const Navbar: React.FC = () => {
                 <span className="logo-text">Tomer Fikler</span>
             </div>
             <ul className="nav-links">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/projects">Projects</Link></li>
-                <li><Link to="/experience">Experience</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#experience">Experience</a></li>
             </ul>
         </nav>
     );
