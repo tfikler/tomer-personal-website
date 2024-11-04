@@ -150,8 +150,8 @@ const ContactForm = ({ isOpen, onClose }:{isOpen: boolean, onClose: any}) => {
                     </>
                 ) : (
                     <>
-                        <Message isError={isError}>{message}</Message>
-                        <SendAgainButton onClick={()=>{setMessage('')}}>Send Again</SendAgainButton>
+                    <Message isError={isError}>{message}</Message>
+                    <SendAgainButton onClick={()=>{setMessage('')}}>Send Again</SendAgainButton>
                     </>
                 )}
             </ModalContainer>
