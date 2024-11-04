@@ -10,6 +10,7 @@ const Home: React.FC = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 minHeight: '80vh',
+                marginBottom: 8,
                 fontFamily: 'Poppins, sans-serif',
             }}
         >

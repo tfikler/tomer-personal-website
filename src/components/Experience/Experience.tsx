@@ -9,6 +9,7 @@ const ExperienceSection = styled.section`
     flex-direction: column;
     align-items: center;
     font-family: Arial, sans-serif;
+    margin-bottom: 8;
 `;
 
 const Title = styled.h2`
