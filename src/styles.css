@@ -52,6 +52,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    scroll-margin-top: 80px; /* Adjust based on your navbar height */
 }
 
 /* Footer styling at the very bottom */
