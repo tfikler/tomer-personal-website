@@ -21,14 +21,11 @@ a {
     padding: 2rem;
 }
 
-/* Home Page */
-.home {
+#home {
+    height: 150vh; /* Increase height to 120% of the viewport */
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
-    text-align: center;
 }
 
 .home h1 {
@@ -42,13 +39,30 @@ a {
     max-width: 600px;
 }
 
-/* Footer */
-footer {
+.content {
+    min-height: 120vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Apply full-height to each section */
+.section {
+    flex: 1;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-margin-top: 80px; /* Adjust based on your navbar height */
+}
+
+/* Footer styling at the very bottom */
+.footer-like {
     text-align: center;
-    padding: 1rem 0;
-    background-color: #333;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 1rem;
+    font-size: 0.8rem;
+}
+
+/* Smooth scrolling for in-page navigation */
+html {
+    scroll-behavior: smooth;
 }

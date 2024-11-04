@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css'; // Import CSS specific to Navbar
+import React, {useState} from 'react';
+import './Navbar.css';
+import ContactForm from "../ContactForm/ContactForm.tsx"; // Import CSS specific to Navbar
 
 
 //api
@@ -8,6 +8,9 @@ import './Navbar.css'; // Import CSS specific to Navbar
 
 const Navbar: React.FC = () => {
     const [iconImageUrl, setIconImageUrl] = React.useState<string>('');
+    const [isContactOpen, setContactOpen] = useState(false);
+    const openContactForm = () => setContactOpen(true);
+    const closeContactForm = () => setContactOpen(false);
 
     React.useEffect(() => {
         const fetchIcon = async () => {
@@ -31,11 +34,11 @@ const Navbar: React.FC = () => {
                 <span className="logo-text">Tomer Fikler</span>
             </div>
             <ul className="nav-links">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/projects">Projects</Link></li>
-                <li><Link to="/skills">Skills</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact-me" onClick={openContactForm}>Contact me</a></li>
             </ul>
+            <ContactForm isOpen={isContactOpen} onClose={closeContactForm} />
         </nav>
     );
 };
