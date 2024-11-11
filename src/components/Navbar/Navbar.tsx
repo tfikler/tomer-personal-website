@@ -15,11 +15,12 @@ const Navbar: React.FC = () => {
     React.useEffect(() => {
         const fetchIcon = async () => {
             try {
-                const response = await fetch('http://localhost:3000/generate-sas-url');
+                const response = await fetch('api/generate-sas-url');
                 if (!response.ok) {
                     throw new Error('Failed to fetch icon');
                 }
                 const data = await response.json();
+                console.log(data);
                 setIconImageUrl(data.sasUrl);
             } catch (error) {
                 console.error('Error fetching icon:', error);
