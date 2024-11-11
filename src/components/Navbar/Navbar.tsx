@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
     const openContactForm = () => setContactOpen(true);
     const closeContactForm = () => setContactOpen(false);
     const vercelUrl = import.meta.env.VITE_VERCEL_URL;
+    //const localUrl = 'http://localhost:3000';
 
     React.useEffect(() => {
         const fetchIcon = async () => {
@@ -21,7 +22,6 @@ const Navbar: React.FC = () => {
                     throw new Error('Failed to fetch icon');
                 }
                 const data = await response.json();
-                console.log(data);
                 setIconImageUrl(data.sasUrl);
             } catch (error) {
                 console.error('Error fetching icon:', error);

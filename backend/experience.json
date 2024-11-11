@@ -1,0 +1,16 @@
+[
+  {
+    "role": "Software Engineer",
+    "company": "eSelf-ai",
+    "year": "2023 - 2024",
+    "details": "Led the development of an automation framework from scratch using AWS EC2, Appium, Selenium, and Python to improve testing and deployment. Managed unit and integration testing frameworks for CI/CD pipelines and integrated advanced AI technologies for enhanced user interactions.",
+    "gradient": "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
+  },
+  {
+    "role": "Commander and Combat Soldier & Sergeant",
+    "company": "Golani 51, IDF",
+    "year": "2015 - 2018",
+    "details": "Led soldiers in high-stress situations, provided training and feedback, and managed logistics for the unit.",
+    "gradient": "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
+  }
+]

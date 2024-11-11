@@ -106,12 +106,26 @@ const experienceVariants = {
 };
 
 const Experience: React.FC = () => {
-    //TODO: Replace with real data from AzureStorage
-    const experiences = [
-        { role: 'Software Engineer', company: 'Company A', year: '2022 - Present', details: 'Developed scalable applications and led a small team to success.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
-        { role: 'Developer Intern', company: 'Company B', year: '2021 - 2022', details: 'Assisted in API development and optimized backend services.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
-        { role: 'Junior Developer', company: 'Company C', year: '2020 - 2021', details: 'Contributed to backend development and design.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
-    ];
+    const vercelUrl = import.meta.env.VITE_VERCEL_URL;
+    //const localUrl = 'http://localhost:3000';
+    const [experiences, setExperiences] = useState([{ role: '', company: '', year: '', details: '', gradient: '' }]);
+
+    React.useEffect(() => {
+        const fetchIcon = async () => {
+            try {
+                const response = await fetch(`${vercelUrl}/api/experience.ts`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch icon');
+                }
+                const data = await response.json();
+                const experienceResponse = await fetch(data.experiencejson);
+                setExperiences(await experienceResponse.json());
+            } catch (error) {
+                console.error('Error fetching icon:', error);
+            }
+        };
+        fetchIcon();
+    }, []);
 
     // Set up an array to keep track of the flipped state for each card
     const [flippedStates, setFlippedStates] = useState<boolean[]>(experiences.map(() => false));

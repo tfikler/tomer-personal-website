@@ -21,12 +21,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     try {
-        const sasUrl = await getFileFromAzureContainer(
+        const experiencejson = await getFileFromAzureContainer(
             blobServiceClient,
-            'images',
-            'personal-picture.svg'
+            'jsonfiles',
+            'experience.json'
         );
-        res.status(200).json({ sasUrl });
+        res.status(200).json({ experiencejson: experiencejson });
     } catch (error) {
         console.error("Error generating SAS URL:", error);
         res.status(500).send("Server Error");
