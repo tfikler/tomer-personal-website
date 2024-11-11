@@ -110,7 +110,7 @@ const Experience: React.FC = () => {
     const experiences = [
         { role: 'Software Engineer', company: 'Company A', year: '2022 - Present', details: 'Developed scalable applications and led a small team to success.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
         { role: 'Developer Intern', company: 'Company B', year: '2021 - 2022', details: 'Assisted in API development and optimized backend services.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
-        { role: 'Junior Developer', company: 'Company C', year: '2020 - 2021', details: 'Contributed to frontend development and design.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
+        { role: 'Junior Developer', company: 'Company C', year: '2020 - 2021', details: 'Contributed to backend development and design.', gradient: 'linear-gradient(135deg, #e6e6e6, #d9d9d9)' },
     ];
 
     // Set up an array to keep track of the flipped state for each card
