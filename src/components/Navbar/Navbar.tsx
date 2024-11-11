@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
     React.useEffect(() => {
         const fetchIcon = async () => {
             try {
-                const response = await fetch(`${vercelUrl}/api/generate-sas-url`);
+                const response = await fetch(`${vercelUrl}/api/generate-sas-url.ts`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch icon');
                 }
