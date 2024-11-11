@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for personal website",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.9.0",
+    "@vercel/node": "^1.11.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tfikler/tomer-personal-website.git"
+  },
+  "private": true
+}
