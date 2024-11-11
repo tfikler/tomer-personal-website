@@ -11,11 +11,12 @@ const Navbar: React.FC = () => {
     const [isContactOpen, setContactOpen] = useState(false);
     const openContactForm = () => setContactOpen(true);
     const closeContactForm = () => setContactOpen(false);
+    const vercelUrl = import.meta.env.VITE_VERCEL_URL;
 
     React.useEffect(() => {
         const fetchIcon = async () => {
             try {
-                const response = await fetch('api/generate-sas-url');
+                const response = await fetch(`${vercelUrl}/api/generate-sas-url`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch icon');
                 }
