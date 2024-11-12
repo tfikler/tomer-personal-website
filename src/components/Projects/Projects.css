@@ -1,0 +1,22 @@
+.react-multi-carousel-track {
+    margin-left: -50px !important;
+
+    @media (max-width: 768px) {
+        margin-left: -10px !important;
+    }
+}
+
+.react-multiple-carousel__arrow--left {
+    margin-left: -35px !important;
+
+    @media (max-width: 768px) {
+        margin-left: -5px !important;
+    }
+}
+
+.react-multiple-carousel__arrow--right {
+
+    @media (max-width: 768px) {
+        margin-right: -10px !important;
+    }
+}
