@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Carousel from 'react-material-ui-carousel';
+// import Carousel from 'react-material-ui-carousel';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import { Github, ExternalLink, Play } from 'lucide-react';
 
 const ProjectSection = styled.section`
@@ -46,6 +48,7 @@ const ProjectCard = styled(motion.div)<{ gradient: string; isFlipped: boolean }>
     perspective: 1000px;
     height: 400px;
     position: relative;
+    margin: 10%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
@@ -175,7 +178,7 @@ const Projects: React.FC = () => {
             github: "https://github.com/username/ecommerce-dashboard",
             liveDemo: "https://dashboard-demo.com",
             techStack: ["React", "Node.js", "MongoDB", "Express", "Redux", "Tailwind CSS"],
-            gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
         },
         {
             title: "Weather App",
@@ -184,7 +187,16 @@ const Projects: React.FC = () => {
             github: "https://github.com/username/weather-app",
             liveDemo: "https://weather-app-demo.com",
             techStack: ["React", "TypeScript", "OpenWeather API", "Styled Components"],
-            gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)"
+            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
+        },
+        {
+            title: "Social Media App",
+            description: "A social media platform that allows users to create posts, follow other users, and interact with posts through likes and comments.",
+            preview: "/api/placeholder/640/360",
+            github: "https://github.com/username/weather-app",
+            liveDemo: "https://weather-app-demo.com",
+            techStack: ["React", "TypeScript", "OpenWeather API", "Styled Components"],
+            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
         }
     ];
 
@@ -201,11 +213,57 @@ const Projects: React.FC = () => {
             <Title>My Projects</Title>
             <ProjectContainer>
                 <Carousel
-                    autoPlay={false}
-                    animation="slide"
-                    navButtonsAlwaysVisible={true}
-
-
+                    additionalTransfrom={0}
+                    arrows
+                    autoPlaySpeed={3000}
+                    centerMode
+                    className=""
+                    containerClass="container"
+                    dotListClass=""
+                    draggable
+                    focusOnSelect={false}
+                    infinite
+                    itemClass=""
+                    keyBoardControl
+                    minimumTouchDrag={80}
+                    pauseOnHover
+                    renderArrowsWhenDisabled={false}
+                    renderButtonGroupOutside={false}
+                    renderDotsOutside={false}
+                    responsive={{
+                        desktop: {
+                            breakpoint: {
+                                max: 3000,
+                                min: 1024
+                            },
+                            items: 2,
+                            partialVisibilityGutter: 40
+                        },
+                        mobile: {
+                            breakpoint: {
+                                max: 464,
+                                min: 0
+                            },
+                            items: 1,
+                            partialVisibilityGutter: 30
+                        },
+                        tablet: {
+                            breakpoint: {
+                                max: 1024,
+                                min: 464
+                            },
+                            items: 2,
+                            partialVisibilityGutter: 30
+                        }
+                    }}
+                    rewind={false}
+                    rewindWithAnimation={false}
+                    rtl={false}
+                    shouldResetAutoplay
+                    showDots={false}
+                    sliderClass=""
+                    slidesToSlide={1}
+                    swipeable
                 >
                 {projects.map((project, index) => (
                     <ProjectCard
