@@ -12,6 +12,7 @@ const Home: React.FC = () => {
                 minHeight: '80vh',
                 marginBottom: 8,
                 fontFamily: 'Poppins, sans-serif',
+                px: { xs: 2, sm: 4, md: 6 }, // Add padding on mobile
             }}
         >
             <Paper
@@ -19,21 +20,23 @@ const Home: React.FC = () => {
                 sx={{
                     maxWidth: '800px',
                     width: '100%',
-                    p: 8,
+                    p: { xs: 4, sm: 6, md: 8 }, // Adjust padding based on screen size
                     borderRadius: 4,
                     bgcolor: 'white',
                     display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'row' }, // Stack on mobile
                     alignItems: 'flex-start',
                 }}
             >
                 <SocialLinks />
-                <Box sx={{ flex: 1, ml: 6 }}>
+                <Box sx={{ flex: 1, ml: { xs: 0, sm: 6 }, mt: { xs: 4, sm: 0 } }}>
                     <Typography
                         variant="h2"
                         component="h1"
                         gutterBottom
                         sx={{
-                            fontSize: { xs: '2.5rem', sm: '3rem' },
+                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }, // Responsive font size
+                            textAlign: { xs: 'center', sm: 'left' }, // Center-align on mobile
                         }}
                     >
                         Hi there, I'm Tomer Fikler
@@ -42,27 +45,21 @@ const Home: React.FC = () => {
                         variant="body1"
                         color="text.secondary"
                         sx={{
-                            fontSize: { xs: '1rem', sm: '1.125rem' },
+                            fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' }, // Adjust font size
+                            textAlign: { xs: 'center', sm: 'left' },
+                            mb: { xs: 4, sm: 0 },
                         }}
                     >
                         I'm a full-stack software engineer with a BSc in Computer Science from Reichman University, where I graduated with honors. I have a passion for creating web applications that drive real-world results.
                     </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 6 }}>
+                    <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, mt: 4 }}>
                         <Button
                             variant="contained"
                             color="primary"
-                            href="/projects"
-                            sx={{ mr: 2, py: 2, px: 4, fontSize: '1rem' }}
+                            href="#projects"
+                            sx={{ mr: 2, py: 1, px: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }} // Adjust button size
                         >
                             View My Projects
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            href="/contact"
-                            sx={{ py: 2, px: 4, fontSize: '1rem' }}
-                        >
-                            Get in Touch
                         </Button>
                     </Box>
                 </Box>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Home from './components/Home';
 import Experience from './components/Experience/Experience';
 import Navbar from './components/Navbar/Navbar';
+import Projects from './components/Projects/Projects';
 import './styles.css';
 
 const App: React.FC = () => {
@@ -16,6 +17,9 @@ const App: React.FC = () => {
                 </div>
                 <div id="experience" className="section">
                     <Experience/>
+                </div>
+                <div id="projects" className="section">
+                     <Projects />
                 </div>
             </div>
             <footer className="footer-like">

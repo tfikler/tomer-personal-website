@@ -9,6 +9,8 @@ import ContactForm from "../ContactForm/ContactForm.tsx"; // Import CSS specific
 const Navbar: React.FC = () => {
     const [iconImageUrl, setIconImageUrl] = React.useState<string>('');
     const [isContactOpen, setContactOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false); // State for toggling menu visibility
+
     const openContactForm = () => setContactOpen(true);
     const closeContactForm = () => setContactOpen(false);
     const vercelUrl = import.meta.env.VITE_VERCEL_URL;
@@ -29,18 +31,27 @@ const Navbar: React.FC = () => {
         };
         fetchIcon();
     }, []);
+
+    const toggleMenu = () => setMenuOpen(!menuOpen); // Toggle menu visibility
     return (
         <nav className="navbar">
             <div className="logo">
                 <img className="logo-img" src={iconImageUrl} alt={''}/>
                 <span className="logo-text">Tomer Fikler</span>
             </div>
-            <ul className="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#contact-me" onClick={openContactForm}>Contact me</a></li>
+            {/* Hamburger Icon for Mobile */}
+
+            <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact-me" onClick={openContactForm}>Contact me</a></li>
             </ul>
-            <ContactForm isOpen={isContactOpen} onClose={closeContactForm} />
+
+            <div className="hamburger" onClick={toggleMenu}>
+                &#9776;
+            </div>
+
+            <ContactForm isOpen={isContactOpen} onClose={closeContactForm}/>
         </nav>
     );
 };

@@ -66,3 +66,34 @@ a {
 html {
     scroll-behavior: smooth;
 }
+
+/* Mobile Styles */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 90%; /* Reduce the width */
+        padding: 1rem;
+    }
+
+    .home h1 {
+        font-size: 2rem; /* Decrease font size */
+    }
+
+    .home p {
+        font-size: 1rem; /* Adjust font size */
+        max-width: 100%; /* Full width */
+    }
+
+    .content {
+        min-height: 100vh; /* Adjust height for mobile */
+    }
+
+    .section {
+        min-height: 50vh; /* Reduce section height */
+        flex-direction: column; /* Stack content vertically if needed */
+    }
+
+    .footer-like {
+        font-size: 0.7rem;
+        padding: 0.5rem; /* Smaller padding */
+    }
+}
