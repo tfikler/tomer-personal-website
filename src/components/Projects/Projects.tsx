@@ -94,6 +94,11 @@ const ProjectTitle = styled.h3`
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 10px;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
 `;
 
 const TechStack = styled.div`
