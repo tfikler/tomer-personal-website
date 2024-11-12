@@ -17,6 +17,10 @@ const Title = styled.h2`
     margin-bottom: 50px;
     color: #333333;
     text-align: center;
+    
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
 `;
 
 const ExperienceContainer = styled.div`
@@ -98,6 +102,10 @@ const Description = styled.p`
     font-size: 1.1rem;
     color: #4d4d4d;
     margin-top: 15px;
+    
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
 `;
 
 const experienceVariants = {
