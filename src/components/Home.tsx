@@ -56,18 +56,10 @@ const Home: React.FC = () => {
                         <Button
                             variant="contained"
                             color="primary"
-                            href="/projects"
+                            href="#projects"
                             sx={{ mr: 2, py: 1, px: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }} // Adjust button size
                         >
                             View My Projects
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            href="/contact"
-                            sx={{ py: 1, px: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }}
-                        >
-                            Get in Touch
                         </Button>
                     </Box>
                 </Box>
