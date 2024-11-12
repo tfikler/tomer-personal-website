@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import Carousel from 'react-material-ui-carousel';
 import { Github, ExternalLink, Play } from 'lucide-react';
 
 const ProjectSection = styled.section`
@@ -199,6 +200,13 @@ const Projects: React.FC = () => {
         <ProjectSection>
             <Title>My Projects</Title>
             <ProjectContainer>
+                <Carousel
+                    autoPlay={false}
+                    animation="slide"
+                    navButtonsAlwaysVisible={true}
+
+
+                >
                 {projects.map((project, index) => (
                     <ProjectCard
                         onClick={() => handleFlip(index)}
@@ -240,6 +248,7 @@ const Projects: React.FC = () => {
                         </div>
                     </ProjectCard>
                 ))}
+            </Carousel>
             </ProjectContainer>
         </ProjectSection>
     );
