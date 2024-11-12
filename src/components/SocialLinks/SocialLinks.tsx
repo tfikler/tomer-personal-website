@@ -10,6 +10,9 @@ const SocialLinks: React.FC = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 mr: 6,
+                '@media (max-width: 768px)': {
+                    flexDirection: 'row',
+                },
             }}
         >
             <IconButton

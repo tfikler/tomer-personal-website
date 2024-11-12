@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-// import Carousel from 'react-material-ui-carousel';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import './Projects.css';
 import { Github, ExternalLink, Play } from 'lucide-react';
 
 const ProjectSection = styled.section`
@@ -21,6 +21,10 @@ const Title = styled.h2`
     margin-bottom: 50px;
     color: #333333;
     text-align: center;
+
+    @media (max-width: 768px) {
+        font-size: 2.5rem;
+    }
 `;
 
 const ProjectContainer = styled.div`
@@ -29,6 +33,7 @@ const ProjectContainer = styled.div`
     gap: 30px;
     width: 120%;
     max-width: 1200px;
+    margin: 0 auto; /* Center the carousel */
 
     @media (max-width: 768px) {
         width: 100%;
@@ -89,6 +94,11 @@ const ProjectTitle = styled.h3`
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 10px;
+    text-align: center;
+    
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
 `;
 
 const TechStack = styled.div`
@@ -216,7 +226,7 @@ const Projects: React.FC = () => {
                     additionalTransfrom={0}
                     arrows
                     autoPlaySpeed={3000}
-                    centerMode
+                    centerMode={false}
                     className=""
                     containerClass="container"
                     dotListClass=""
@@ -241,20 +251,11 @@ const Projects: React.FC = () => {
                         },
                         mobile: {
                             breakpoint: {
-                                max: 464,
+                                max: 768,
                                 min: 0
                             },
                             items: 1,
-                            partialVisibilityGutter: 30
                         },
-                        tablet: {
-                            breakpoint: {
-                                max: 1024,
-                                min: 464
-                            },
-                            items: 2,
-                            partialVisibilityGutter: 30
-                        }
                     }}
                     rewind={false}
                     rewindWithAnimation={false}
