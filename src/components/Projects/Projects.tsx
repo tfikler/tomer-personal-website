@@ -220,7 +220,6 @@ const Projects: React.FC = () => {
                     throw new Error('Failed to fetch projects');
                 }
                 const data = await response.json();
-                console.log(data)
                 const projectsResponse = await fetch(data['projectsJson']);
                 const projectsArray = await projectsResponse.json()
                 setProjects(projectsArray);
@@ -235,7 +234,7 @@ const Projects: React.FC = () => {
 
 
 
-    const [flippedStates, setFlippedStates] = useState<boolean[]>(projects.map(() => false));
+    const [flippedStates, setFlippedStates] = useState<boolean[]>([false, false, false, false, false, false]);
 
     const handleFlip = (index: number) => {
         setFlippedStates(prevState =>
