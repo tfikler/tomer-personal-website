@@ -156,7 +156,7 @@ const ProjectPreview = styled.div`
     video {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     .play-button {
@@ -182,6 +182,40 @@ const projectVariants = {
 
 const Projects: React.FC = () => {
     const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+    //const vercelUrl = import.meta.env.VITE_VERCEL_URL;
+    const localUrl = 'http://localhost:3000';
+    const [videoUrls, setVideoUrls] = useState<{ [key: number]: string }>({}); // Map project index to video URL
+
+    React.useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const response = await fetch(`${localUrl}/api/project-videos.ts`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch video URLs');
+                }
+                const data = await response.json();
+
+                if (data['videos'] && typeof data['videos'] === 'object') {
+                    // Map video URLs by index
+                    const urls: { [key: number]: string } = {};
+                    Object.entries(data['videos']).forEach(([, videoUrl]:[string, unknown], index:number) => {
+                        if (typeof videoUrl === "string") {
+                            urls[index] = videoUrl;
+                        }
+                    });
+                    setVideoUrls(urls);
+                } else {
+                    console.error('Invalid video data format:', data['videos']);
+                }
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+            }
+        };
+
+        fetchVideos();
+    }, []);
+
 
     const projects = [
         {
@@ -284,10 +318,10 @@ const Projects: React.FC = () => {
                                 <ProjectPreview>
                                     <video
                                         ref={el => (videoRefs.current[index] = el!)}
-                                        src="https://tfikler.blob.core.windows.net/project-videos/LingoStroll.mp4?sp=r&st=2024-11-13T08:01:30Z&se=2024-11-13T16:01:30Z&spr=https&sv=2022-11-02&sr=b&sig=GJBI71tFjdY%2FdKvOPxQ88wh4kvMo5T7qd6HhOLOUvfk%3D"
+                                        src={videoUrls[index] || ''} // Dynamically set src
                                         controls={true}
                                         muted={true}
-                                        playsInline // Ensures compatibility with mobile browsers
+                                        playsInline // Mobile compatibility
                                     />
                                 </ProjectPreview>
                                 <ProjectTitle>{project.title}</ProjectTitle>
@@ -301,7 +335,7 @@ const Projects: React.FC = () => {
                                 <Description>{project.description}</Description>
                                 <Links>
                                     <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
-                                        <Github size={20} />
+                                        <Github size={20}/>
                                         GitHub
                                     </LinkButton>
                                     <LinkButton href={project.liveDemo} target="_blank" rel="noopener noreferrer">

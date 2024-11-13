@@ -21,11 +21,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     try {
-        const sasUrl = await getAllFilesFromAzureContainer(
+        const videos = await getAllFilesFromAzureContainer(
             blobServiceClient,
             'project-videos',
         );
-        res.status(200).json({ sasUrl });
+        res.status(200).json({ videos });
     } catch (error) {
         console.error("Error generating SAS URL:", error);
         res.status(500).send("Server Error");
