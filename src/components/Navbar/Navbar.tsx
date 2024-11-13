@@ -44,6 +44,7 @@ const Navbar: React.FC = () => {
             <ul className={`nav-links ${menuOpen ? "open" : ""}`}>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact-me" onClick={openContactForm}>Contact me</a></li>
             </ul>
 
