@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Projects.css';
-import { Github, ExternalLink } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 const ProjectSection = styled.section`
     padding: 10px 20px;
@@ -183,14 +183,15 @@ const projectVariants = {
 const Projects: React.FC = () => {
     const videoRefs = useRef<HTMLVideoElement[]>([]);
 
-    //const vercelUrl = import.meta.env.VITE_VERCEL_URL;
-    const localUrl = 'http://localhost:3000';
+    const vercelUrl = import.meta.env.VITE_VERCEL_URL;
+    //const localUrl = 'http://localhost:3000';
     const [videoUrls, setVideoUrls] = useState<{ [key: number]: string }>({}); // Map project index to video URL
+    const [projects, setProjects] = useState([{title:'', description:'', techStack:[], github:'', gradient:''}]);
 
     React.useEffect(() => {
         const fetchVideos = async () => {
             try {
-                const response = await fetch(`${localUrl}/api/project-videos.ts`);
+                const response = await fetch(`${vercelUrl}/api/project-videos.ts`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch video URLs');
                 }
@@ -212,68 +213,27 @@ const Projects: React.FC = () => {
                 console.error('Error fetching videos:', error);
             }
         };
-
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch(`${vercelUrl}/api/projects-json.ts`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch projects');
+                }
+                const data = await response.json();
+                console.log(data)
+                const projectsResponse = await fetch(data['projectsJson']);
+                const projectsArray = await projectsResponse.json()
+                setProjects(projectsArray);
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+            }
+        }
         fetchVideos();
+        fetchProjects();
     }, []);
 
 
-    const projects = [
-        {
-            title: "Icy Tower Game - Platformer Game with Leaderboard",
-            description: "A browser-based platformer game where players aim to reach higher levels by jumping across platforms while avoiding enemies. Features include a dynamic leaderboard, power-ups, and real-time score updates.",
-            preview: "/api/placeholder/600/600",
-            github: "https://github.com/yourusername/platformer-game",
-            liveDemo: "https://yourplatformer-demo.com",
-            techStack: ["HTML", "CSS", "JavaScript", "Canvas API", "LocalStorage"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "LingoStroll - Language Learning App",
-            description: "Master languages by exploring streets via Google Street View. Users can click on objects to learn their names in the target language. The app also includes quizzes and a progress tracker.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["React", "Node.js", "Express", "MongoDB", "Google Street View API", "Google Analytics"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "Interactive Memory Game with Voice Control",
-            description: "A dynamic and interactive memory game built using Pygame, featuring multiple game modes including single-player, two-player, and voice control. The game integrates a speech recognition system using the Vosk library and supports a 'Wild Mode' with mathematical functions and graphs.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["Python", "Pygame", "Vosk", "Speech Recognition", "PyAudio"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "Scraper - Price Comparison Tool",
-            description: "A web application that scrapes and compares product prices across multiple e-commerce platforms, including Walmart, Best Buy, and Newegg. Features include sorting by price, related searches, and a dynamic frontend using Material-UI.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["Python", "FastAPI", "JavaScript", "Next.js", "Material-UI", "BeautifulSoup"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "Chrome Extension with ChatGPT Integration",
-            description: "A Chrome extension that enhances user experience with a context menu offering AI-powered tools such as English improvement, text summarization, image generation, code commenting, and quiz generation. Utilizes OpenAI's API for real-time content processing.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["JavaScript", "Chrome Extensions API", "OpenAI API", "HTML", "CSS"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "AI-Powered Trip Planner",
-            description: "A comprehensive trip planning web application that suggests top destinations, flight options, and accommodations based on user preferences. It also provides a detailed daily itinerary and AI-generated destination visuals. Powered by OpenAI and integrated with Google Flights and Hotels APIs.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["Python", "React", "Material-UI", "FastAPI", "Google Flights API", "Google Hotels API", "OpenAI API"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        }
 
-    ];
 
     const [flippedStates, setFlippedStates] = useState<boolean[]>(projects.map(() => false));
 
@@ -365,10 +325,6 @@ const Projects: React.FC = () => {
                                     <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
                                         <Github size={20}/>
                                         GitHub
-                                    </LinkButton>
-                                    <LinkButton href={project.liveDemo} target="_blank" rel="noopener noreferrer">
-                                        <ExternalLink size={20} />
-                                        Live Demo
                                     </LinkButton>
                                 </Links>
                             </div>
