@@ -20,3 +20,11 @@
         margin-right: -10px !important;
     }
 }
+
+video::-webkit-media-controls-volume-slider {
+    display:none;
+}
+
+video::-webkit-media-controls-mute-button {
+    display:none;
+}

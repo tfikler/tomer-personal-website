@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Projects.css';
-import { Github, ExternalLink, Play } from 'lucide-react';
+import { Github, ExternalLink } from 'lucide-react';
 
 const ProjectSection = styled.section`
     padding: 10px 20px;
@@ -153,7 +153,7 @@ const ProjectPreview = styled.div`
     position: relative;
     margin-bottom: 15px;
 
-    img {
+    video {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -167,6 +167,7 @@ const ProjectPreview = styled.div`
         justify-content: center;
         background: rgba(0, 0, 0, 0.4);
         transition: background 0.3s ease;
+        cursor: pointer;
 
         &:hover {
             background: rgba(0, 0, 0, 0.3);
@@ -180,6 +181,8 @@ const projectVariants = {
 };
 
 const Projects: React.FC = () => {
+    const videoRefs = useRef<HTMLVideoElement[]>([]);
+
     const projects = [
         {
             title: "E-Commerce Dashboard",
@@ -279,10 +282,13 @@ const Projects: React.FC = () => {
                         <div className="flip-card-inner">
                             <div className="flip-card-front">
                                 <ProjectPreview>
-                                    <img src={project.preview} alt={project.title} />
-                                    <div className="play-button">
-                                        <Play size={48} color="white" />
-                                    </div>
+                                    <video
+                                        ref={el => (videoRefs.current[index] = el!)}
+                                        src="https://tfikler.blob.core.windows.net/project-videos/LingoStroll.mp4?sp=r&st=2024-11-13T08:01:30Z&se=2024-11-13T16:01:30Z&spr=https&sv=2022-11-02&sr=b&sig=GJBI71tFjdY%2FdKvOPxQ88wh4kvMo5T7qd6HhOLOUvfk%3D"
+                                        controls={true}
+                                        muted={true}
+                                        playsInline // Ensures compatibility with mobile browsers
+                                    />
                                 </ProjectPreview>
                                 <ProjectTitle>{project.title}</ProjectTitle>
                                 <TechStack>
