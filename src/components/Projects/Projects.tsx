@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './Projects.css';
-import { Github, ExternalLink, Play } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 const ProjectSection = styled.section`
     padding: 10px 20px;
@@ -153,10 +153,10 @@ const ProjectPreview = styled.div`
     position: relative;
     margin-bottom: 15px;
 
-    img {
+    video {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     .play-button {
@@ -167,6 +167,7 @@ const ProjectPreview = styled.div`
         justify-content: center;
         background: rgba(0, 0, 0, 0.4);
         transition: background 0.3s ease;
+        cursor: pointer;
 
         &:hover {
             background: rgba(0, 0, 0, 0.3);
@@ -180,35 +181,59 @@ const projectVariants = {
 };
 
 const Projects: React.FC = () => {
-    const projects = [
-        {
-            title: "E-Commerce Dashboard",
-            description: "A full-stack dashboard for managing online store inventory, sales, and customer data. Features include real-time analytics, inventory management, and sales reporting.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/ecommerce-dashboard",
-            liveDemo: "https://dashboard-demo.com",
-            techStack: ["React", "Node.js", "MongoDB", "Express", "Redux", "Tailwind CSS"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "Weather App",
-            description: "Real-time weather application that provides detailed forecasts, radar maps, and severe weather alerts using multiple weather APIs.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["React", "TypeScript", "OpenWeather API", "Styled Components"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
-        },
-        {
-            title: "Social Media App",
-            description: "A social media platform that allows users to create posts, follow other users, and interact with posts through likes and comments.",
-            preview: "/api/placeholder/640/360",
-            github: "https://github.com/username/weather-app",
-            liveDemo: "https://weather-app-demo.com",
-            techStack: ["React", "TypeScript", "OpenWeather API", "Styled Components"],
-            gradient: "linear-gradient(135deg, #e6e6e6, #d9d9d9)"
+    const videoRefs = useRef<HTMLVideoElement[]>([]);
+
+    const vercelUrl = import.meta.env.VITE_VERCEL_URL;
+    //const localUrl = 'http://localhost:3000';
+    const [videoUrls, setVideoUrls] = useState<{ [key: number]: string }>({}); // Map project index to video URL
+    const [projects, setProjects] = useState([{title:'', description:'', techStack:[], github:'', gradient:''}]);
+
+    React.useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const response = await fetch(`${vercelUrl}/api/project-videos.ts`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch video URLs');
+                }
+                const data = await response.json();
+
+                if (data['videos'] && typeof data['videos'] === 'object') {
+                    // Map video URLs by index
+                    const urls: { [key: number]: string } = {};
+                    Object.entries(data['videos']).forEach(([, videoUrl]:[string, unknown], index:number) => {
+                        if (typeof videoUrl === "string") {
+                            urls[index] = videoUrl;
+                        }
+                    });
+                    setVideoUrls(urls);
+                } else {
+                    console.error('Invalid video data format:', data['videos']);
+                }
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+            }
+        };
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch(`${vercelUrl}/api/projects-json.ts`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch projects');
+                }
+                const data = await response.json();
+                console.log(data)
+                const projectsResponse = await fetch(data['projectsJson']);
+                const projectsArray = await projectsResponse.json()
+                setProjects(projectsArray);
+            } catch (error) {
+                console.error('Error fetching projects:', error);
+            }
         }
-    ];
+        fetchVideos();
+        fetchProjects();
+    }, []);
+
+
+
 
     const [flippedStates, setFlippedStates] = useState<boolean[]>(projects.map(() => false));
 
@@ -279,10 +304,13 @@ const Projects: React.FC = () => {
                         <div className="flip-card-inner">
                             <div className="flip-card-front">
                                 <ProjectPreview>
-                                    <img src={project.preview} alt={project.title} />
-                                    <div className="play-button">
-                                        <Play size={48} color="white" />
-                                    </div>
+                                    <video
+                                        ref={el => (videoRefs.current[index] = el!)}
+                                        src={videoUrls[index] || ''} // Dynamically set src
+                                        controls={true}
+                                        muted={true}
+                                        playsInline // Mobile compatibility
+                                    />
                                 </ProjectPreview>
                                 <ProjectTitle>{project.title}</ProjectTitle>
                                 <TechStack>
@@ -295,12 +323,8 @@ const Projects: React.FC = () => {
                                 <Description>{project.description}</Description>
                                 <Links>
                                     <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
-                                        <Github size={20} />
+                                        <Github size={20}/>
                                         GitHub
-                                    </LinkButton>
-                                    <LinkButton href={project.liveDemo} target="_blank" rel="noopener noreferrer">
-                                        <ExternalLink size={20} />
-                                        Live Demo
                                     </LinkButton>
                                 </Links>
                             </div>

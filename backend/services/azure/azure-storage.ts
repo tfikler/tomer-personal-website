@@ -9,7 +9,6 @@ import { sharedKeyCredential } from '../../config/azure-config';
 
 export async function generateSasUrl(containerClient: ContainerClient, blobClient: BlobClient) {
     try {
-        console.log('generateSasUrl')
         // Set expiration for SAS token (1 hour)
         const expiryDate = new Date();
         expiryDate.setHours(expiryDate.getHours() + 1);
@@ -42,6 +41,31 @@ export async function getFileFromAzureContainer(
         return await generateSasUrl(containerClient, blobClient);
     } catch (error) {
         console.error("Error getting file from Azure container:", error);
+        throw error;
+    }
+}
+
+export async function getAllFilesFromAzureContainer(
+    blobServiceClient: BlobServiceClient,
+    containerName: string
+) {
+    try {
+        const containerClient = blobServiceClient.getContainerClient(containerName);
+        const blobItems = containerClient.listBlobsFlat();
+        const files: { [key: string]: string } = {};
+        const promises = [];
+        for await (const blob of blobItems) {
+            const blobClient = containerClient.getBlobClient(blob.name);
+            promises.push(generateSasUrl(containerClient, blobClient).then(sasUrl => {
+                files[blob.name] = sasUrl;
+            }));
+        }
+        await Promise.all(promises);
+
+
+        return files;
+    } catch (error) {
+        console.error("Error getting files from Azure container:", error);
         throw error;
     }
 }
