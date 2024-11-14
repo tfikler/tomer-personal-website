@@ -50,7 +50,7 @@ const Home: React.FC = () => {
                             mb: { xs: 4, sm: 0 },
                         }}
                     >
-                        I'm a full-stack software engineer with a BSc in Computer Science from Reichman University, where I graduated with honors. I have a passion for creating web applications that drive real-world results.
+                        I am a software engineer with a BSc in Computer Science from Reichman University, graduating with honors. I am driven by a passion for building innovative applications that deliver real-world impact, leveraging a strong foundation in both front-end and back-end development.
                     </Typography>
                     <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, mt: 4 }}>
                         <Button
