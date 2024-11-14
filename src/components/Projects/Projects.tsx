@@ -305,6 +305,7 @@ const Projects: React.FC = () => {
                                 <ProjectPreview
                                 onClick={(e) => {e.stopPropagation()}}>
                                     <video
+                                        style={{ display: flippedStates[index] ? 'none' : 'block' }}
                                         ref={el => (videoRefs.current[index] = el!)}
                                         src={videoUrls[index] || ''} // Dynamically set src
                                         controls={true}
