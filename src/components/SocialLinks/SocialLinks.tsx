@@ -1,8 +1,25 @@
 import React from 'react';
 import {Box, IconButton, SvgIcon, Tooltip} from '@mui/material';
 import {Facebook, GitHub, LinkedIn, ContactPage} from '@mui/icons-material';
+import {logEvent} from "../../../ga4.ts";
 
 const SocialLinks: React.FC = () => {
+    const vercelUrl = import.meta.env.VITE_VERCEL_URL;
+    //const localUrl = 'http://localhost:3000';
+    const [cv, setCv] = React.useState<any>(null);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${vercelUrl}/api/cv.ts`);
+                const data = await response.json();
+                setCv(data.cv);
+            } catch (error) {
+                console.error('Error fetching CV:', error);
+            }
+        };
+        fetchData();
+    }, []);
     return (
         <Box
             sx={{
@@ -64,10 +81,18 @@ const SocialLinks: React.FC = () => {
             <Tooltip title="Download CV" placement="right">
             <IconButton
                 className="social-icon-button"
-                href='./public/Tomer Fikler-CV.pdf'
-                target="_blank"
-                rel="noopener noreferrer"
-                download='Tomer_Fikler_CV.pdf'
+                onClick={async () => {
+                    const response = await fetch(cv);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.href = url;
+                    link.setAttribute("download", "Tomer_Fikler_CV.pdf"); // Set the file name
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                    logEvent('Download', 'CV');
+                }}
                 sx={{ mb: 2 }}
             >
                 <ContactPage/>
