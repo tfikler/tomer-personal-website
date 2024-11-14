@@ -4,9 +4,14 @@ import Home from './components/Home';
 import Experience from './components/Experience/Experience';
 import Navbar from './components/Navbar/Navbar';
 import Projects from './components/Projects/Projects';
+import { initGA, logPageView } from '../ga4.ts';
 import './styles.css';
 
 const App: React.FC = () => {
+    React.useEffect(() => {
+        initGA();
+        logPageView();
+    }, []);
 
     return (
         <>

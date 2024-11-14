@@ -1,6 +1,7 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import emailjs from '@emailjs/browser'
 import styled from 'styled-components';
+import {logEvent} from "../../../ga4.ts";
 
 const Overlay = styled.div`
     position: fixed;
@@ -109,6 +110,10 @@ const ContactForm = ({ isOpen, onClose }:{isOpen: boolean, onClose: any}) => {
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
 
+    useEffect(() => {
+        logEvent('Contact Form', 'Opened');
+    }, []);
+
     const sendEmail = (e: any) => {
         e.preventDefault();
         if (!formRef.current) return;
@@ -120,6 +125,7 @@ const ContactForm = ({ isOpen, onClose }:{isOpen: boolean, onClose: any}) => {
                 (result: any) => {
                     setMessage('Thanks for reaching out! I will get back to you soon.');
                     setIsError(false);
+                    logEvent('Contact Form', 'Submitted');
                     console.log(result);
                     formRef.current?.reset();
                 },

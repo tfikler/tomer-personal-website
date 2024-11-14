@@ -302,7 +302,8 @@ const Projects: React.FC = () => {
                     >
                         <div className="flip-card-inner">
                             <div className="flip-card-front">
-                                <ProjectPreview>
+                                <ProjectPreview
+                                onClick={(e) => {e.stopPropagation()}}>
                                     <video
                                         ref={el => (videoRefs.current[index] = el!)}
                                         src={videoUrls[index] || ''} // Dynamically set src
